@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPILib;
-using ACILIBj;
+﻿using ACILIBj;
 using CTC.Subsystems;
 
 namespace CTC
@@ -12,11 +6,11 @@ namespace CTC
     /// <summary>
     /// This class is used to bind the joysticks to robot functions. 
     /// </summary>
-    static class JoystickBinder
+    internal static class JoystickBinder
     {
         // Define and instantiate joysticks
-        private static readonly SuperJoystick Driver = new SuperJoystick(Ports.JOYSTICK_DRIVER);
-        private static readonly SuperJoystick Operator = new SuperJoystick(Ports.JOYSTICK_OPERATOR);
+        private static readonly SuperJoystick Driver = new SuperJoystick(Ports.JoystickDriver);
+        private static readonly SuperJoystick Operator = new SuperJoystick(Ports.JoystickOperator);
 
         // Define and instantiate a subsystem controller (contains all logic for the subsystems)
         private static readonly SubsystemController S = new SubsystemController();
@@ -26,9 +20,13 @@ namespace CTC
         /// </summary>
         public static void Update()
         {
-            DriveBase.DriveHalo(Driver);
+            // Analog axis binds
+            DriveBase.Drive(Driver);
             S.SetArmPower(Operator.GetAxis(5, 0.17, -1));
             S.SetIntakePower(Operator.GetAxis(1, 0.17, -1));
+            
+            // Button binds
+            Driver.RunWhenPressed(() => S.ToggleGhettoShift(), 1);
         }
 
     }

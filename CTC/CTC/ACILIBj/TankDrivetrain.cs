@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPILib;
+﻿using WPILib;
 
 namespace ACILIBj
 {
@@ -13,8 +8,8 @@ namespace ACILIBj
     class TankDrivetrain
     {
         // Declare left and right speed controller arrays. 
-        private readonly PWMSpeedControllerArray Left;
-        private readonly PWMSpeedControllerArray Right;
+        private readonly PWMSpeedControllerArray _left;
+        private readonly PWMSpeedControllerArray _right;
 
         /// <summary>
         /// Class constructors. Includes overloads for 2, 4, and 6 CIM drivetrains
@@ -23,21 +18,21 @@ namespace ACILIBj
         /// <param name="R1">Right side speed controller(s)</param>
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController R1)
         {
-            this.Left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1 });
-            this.Right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1 });
+            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1 });
+            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1 });
         }
 
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController L2, PWMSpeedController R1, PWMSpeedController R2)
         {
-            this.Left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2 });
-            this.Right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2 });
+            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2 });
+            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2 });
         }
 
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController L2, PWMSpeedController L3,
                               PWMSpeedController R1, PWMSpeedController R2, PWMSpeedController R3)
         {
-            this.Left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2, L3 });
-            this.Right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2, R3 });
+            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2, L3 });
+            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2, R3 });
         }
 
         /// <summary>
@@ -48,8 +43,8 @@ namespace ACILIBj
         /// <param name="rightSpeed">Right side speed</param>
         public void SetRaw(double leftSpeed, double rightSpeed)
         {
-            Left.Set(leftSpeed);
-            Right.Set(rightSpeed);
+            _left.Set(leftSpeed);
+            _right.Set(rightSpeed);
         }
 
         /// <summary>
@@ -61,8 +56,8 @@ namespace ACILIBj
         /// <param name="speedMod">Speed multiplier</param>
         public void DriveTank(double leftSpeed, double rightSpeed, double speedMod)
         {
-            Left.Set(leftSpeed * speedMod);
-            Right.Set(-rightSpeed * speedMod);
+            _left.Set(leftSpeed * speedMod);
+            _right.Set(-rightSpeed * speedMod);
         }
 
         /// <summary>
@@ -74,8 +69,8 @@ namespace ACILIBj
         /// <param name="speedMod">Speed multiplier</param>
         public void DriveHalo(double leftStick, double rightStick, double speedMod)
         {
-            Left.Set((leftStick + rightStick) * speedMod);
-            Right.Set((leftStick - rightStick) * -speedMod);
+            _left.Set((leftStick + rightStick) * speedMod);
+            _right.Set((leftStick - rightStick) * -speedMod);
         }
     }
 }

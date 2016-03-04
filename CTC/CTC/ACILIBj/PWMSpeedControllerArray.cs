@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPILib;
 
 namespace ACILIBj
@@ -14,7 +10,7 @@ namespace ACILIBj
     class PWMSpeedControllerArray
     {
         // Declare speed controller array
-        private readonly PWMSpeedController[] MotorArray;
+        private readonly PWMSpeedController[] _motorArray;
 
         /// <summary>
         /// Constructor for PWMSpeedControllerArray
@@ -27,7 +23,7 @@ namespace ACILIBj
             {
                 throw new ArgumentNullException("Motor array provided was null!");
             }
-            this.MotorArray = motorArray;
+            _motorArray = motorArray;
         }
 
         /// <summary>
@@ -36,7 +32,7 @@ namespace ACILIBj
         /// <param name="power">Desired power</param>
         public void Set(double power)
         {
-            foreach (var s in MotorArray)
+            foreach (var s in _motorArray)
             {
                 s.Set(power);
             }
@@ -49,7 +45,7 @@ namespace ACILIBj
         /// <param name="value">PID generated value</param>
         public void PIDWrite(double value)
         {
-            foreach(var s in MotorArray)
+            foreach(var s in _motorArray)
             {
                 s.PidWrite(value);
             }
@@ -60,7 +56,7 @@ namespace ACILIBj
         /// </summary>
         public void Disable()
         {
-            foreach (var s in MotorArray)
+            foreach (var s in _motorArray)
             {
                 s.Disable();
             }
@@ -71,7 +67,7 @@ namespace ACILIBj
         /// </summary>
         public void StopMotor()
         {
-            foreach(var s in MotorArray)
+            foreach(var s in _motorArray)
             {
                 s.StopMotor();
             }
@@ -82,7 +78,7 @@ namespace ACILIBj
         /// </summary>
         public void Dispose()
         {
-            foreach(var s in MotorArray)
+            foreach(var s in _motorArray)
             {
                 s.Dispose();
             }

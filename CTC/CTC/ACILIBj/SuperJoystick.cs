@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPILib;
 
 namespace ACILIBj
@@ -14,15 +10,15 @@ namespace ACILIBj
     class SuperJoystick
     {
         // Declare joystick
-        private readonly Joystick Joy;
-        private bool Pre = false;
+        private readonly Joystick _joy;
+        private bool _pre = false;
 
         /// <summary>
         /// Enum for joystick POV directions
         /// </summary>
         public enum Direction
         {
-            UP, DOWN, RIGHT, LEFT
+            Up, Down, Right, Left
         }
 
         /// <summary>
@@ -30,7 +26,7 @@ namespace ACILIBj
         /// </summary>
         public enum RumbleType
         {
-            LEFT, RIGHT, ALL
+            Left, Right, All
         }
 
         /// <summary>
@@ -46,7 +42,7 @@ namespace ACILIBj
             }
 
             // Instantiate joystick with provided port
-            Joy = new Joystick(port);
+            _joy = new Joystick(port);
         }
 
         /// <summary>
@@ -59,7 +55,7 @@ namespace ACILIBj
         public double GetAxis(int axis, double deadzone, double multiplier)
         {
             // If axis value is within specified dead zone, return 0. Otherwise return axis value
-            return Math.Abs(Joy.GetRawAxis(axis)) <= deadzone ? 0 : Joy.GetRawAxis(axis) * multiplier;
+            return Math.Abs(_joy.GetRawAxis(axis)) <= deadzone ? 0 : _joy.GetRawAxis(axis) * multiplier;
         }
 
         /// <summary>
@@ -69,14 +65,14 @@ namespace ACILIBj
         /// <param name="button">Desired button</param>
         public void RunWhenPressed(Action runner, int button)
         {
-            if (Joy.GetRawButton(button) && !Pre)
+            if (_joy.GetRawButton(button) && !_pre)
             {
                 runner();
-                Pre = true;
+                _pre = true;
             }
-            else if (!Joy.GetRawButton(button))
+            else if (!_joy.GetRawButton(button))
             {
-                Pre = false;
+                _pre = false;
             }
         }
 
@@ -87,31 +83,32 @@ namespace ACILIBj
         /// <param name="button">Desired button</param>
         public void RunWhenReleased(Action runner, int button)
         {
-            if (!Joy.GetRawButton(button) && !Pre)
+            if (!_joy.GetRawButton(button) && !_pre)
             {
                 runner();
-                Pre = true;
+                _pre = true;
             }
-            else if (Joy.GetRawButton(button))
+            else if (_joy.GetRawButton(button))
             {
-                Pre = false;
+                _pre = false;
             }
         }
 
         /// <summary>
         /// Runs the provided delegate repeatedly while the button is pressed
         /// </summary>
-        /// <param name="runner">Delegate to be run</param>
+        /// <param name="pressed">Delegate to be run when pressed</param>
         /// <param name="button">Desired button</param>
+        /// <param name="released">Delegate to be run when released</param>
         public void RunWhilePressed(Action pressed, int button, Action released = null)
         {
-            if (Joy.GetRawButton(button))
+            if (_joy.GetRawButton(button))
             {
                 pressed();
             }
-            else if (!Joy.GetRawButton(button) && released != null)
+            else if (!_joy.GetRawButton(button))
             {
-                released();
+                released?.Invoke();
             }
         }
 
@@ -122,7 +119,7 @@ namespace ACILIBj
         /// <returns>State of the specified button (T or F)</returns>
         public bool GetButton(int button)
         {
-            return Joy.GetRawButton(button);
+            return _joy.GetRawButton(button);
         }
 
         /// <summary>
@@ -137,14 +134,14 @@ namespace ACILIBj
         {
             switch (d)
             {
-                case Direction.UP:
-                    return Joy.GetPOV(0) == 0;
-                case Direction.DOWN:
-                    return Joy.GetPOV(0) == 180;
-                case Direction.RIGHT:
-                    return Joy.GetPOV(0) == 90;
-                case Direction.LEFT:
-                    return Joy.GetPOV(0) == 270;
+                case Direction.Up:
+                    return _joy.GetPOV(0) == 0;
+                case Direction.Down:
+                    return _joy.GetPOV(0) == 180;
+                case Direction.Right:
+                    return _joy.GetPOV(0) == 90;
+                case Direction.Left:
+                    return _joy.GetPOV(0) == 270;
                 default:
                     return false;
             }
@@ -159,17 +156,15 @@ namespace ACILIBj
         {
             switch (r)
             {
-                case RumbleType.LEFT:
-                    Joy.SetRumble(Joystick.RumbleType.LeftRumble, power);
+                case RumbleType.Left:
+                    _joy.SetRumble(Joystick.RumbleType.LeftRumble, power);
                     break;
-                case RumbleType.RIGHT:
-                    Joy.SetRumble(Joystick.RumbleType.RightRumble, power);
+                case RumbleType.Right:
+                    _joy.SetRumble(Joystick.RumbleType.RightRumble, power);
                     break;
-                case RumbleType.ALL:
-                    Joy.SetRumble(Joystick.RumbleType.LeftRumble, power);
-                    Joy.SetRumble(Joystick.RumbleType.RightRumble, power);
-                    break;
-                default:
+                case RumbleType.All:
+                    _joy.SetRumble(Joystick.RumbleType.LeftRumble, power);
+                    _joy.SetRumble(Joystick.RumbleType.RightRumble, power);
                     break;
             }
         }

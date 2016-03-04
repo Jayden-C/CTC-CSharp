@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ACILIBj;
 
 namespace CTC.Subsystems
@@ -10,8 +6,10 @@ namespace CTC.Subsystems
     /// <summary>
     /// This class contains all of the logic for controlling the robot's subsystems.
     /// </summary>
-    class SubsystemController
+    internal class SubsystemController
     {
+        private bool _ghettoShiftToggle = false;
+
         public SubsystemController()
         {
 
@@ -41,9 +39,10 @@ namespace CTC.Subsystems
             Arm.SetIntake(power);
         }
 
-        public void Drive(SuperJoystick joy)
+        public void ToggleGhettoShift()
         {
-
+            _ghettoShiftToggle = !_ghettoShiftToggle;
+            DriveBase.SpeedMultiplier = _ghettoShiftToggle ? 0.5 : 1;
         }
     }
 }

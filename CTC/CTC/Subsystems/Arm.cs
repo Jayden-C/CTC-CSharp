@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPILib;
-using ACILIBj;
+﻿using WPILib;
 using WPILib.SmartDashboard;
 
 namespace CTC.Subsystems
@@ -12,15 +6,16 @@ namespace CTC.Subsystems
     /// <summary>
     /// This class contains all code for the arm subsystem (arm itself + intake)
     /// </summary>
-    static class Arm
+    internal static class Arm
     {
         // Declare and instantiate speed controllers
-        private static readonly Talon ArmLeft = new Talon(Ports.ARM_MOTOR_LEFT);
-        private static readonly Talon ArmRight = new Talon(Ports.ARM_MOTOR_RIGHT);
-        private static readonly Talon Intake = new Talon(Ports.INTAKE_MOTOR);
+        private static readonly Talon ArmLeft = new Talon(Ports.ArmMotorLeft);
+        private static readonly Talon ArmRight = new Talon(Ports.ArmMotorRight);
+        private static readonly Talon Intake = new Talon(Ports.IntakeMotor);
 
         // Declare and instantiate limit switch
-        private static readonly DigitalInput LimitSwitch = new DigitalInput(Ports.LIMIT_SWITCH);
+        private static readonly DigitalInput LimitSwitchFront = new DigitalInput(Ports.LimitSwitchFront);
+        private static readonly DigitalInput LimitSwitchBack = new DigitalInput(Ports.LimitSwitchBack);
 
         public static void SetIntake(double power)
         {
@@ -29,12 +24,26 @@ namespace CTC.Subsystems
 
         public static void SetArm(double power)
         {
-            SmartDashboard.PutBoolean("Limit Switch", LimitSwitch.Get());
+            SmartDashboard.PutBoolean("Limit Switch Front", LimitSwitchFront.Get());
+            SmartDashboard.PutBoolean("Limit Switch Back", LimitSwitchBack.Get());
 
             // If arm is at the bottom, only allow it to move up
-            if (!LimitSwitch.Get())
+            if (!LimitSwitchFront.Get())
             {
                 if (power >= 0)
+                {
+                    ArmLeft.Set(power);
+                    ArmRight.Set(-power);
+                }
+                else
+                {
+                    ArmLeft.Set(0);
+                    ArmRight.Set(0);
+                }
+            }
+            else if (!LimitSwitchBack.Get())
+            {
+                if (power <= 0)
                 {
                     ArmLeft.Set(power);
                     ArmRight.Set(-power);
