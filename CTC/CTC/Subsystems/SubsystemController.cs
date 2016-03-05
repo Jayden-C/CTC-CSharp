@@ -1,33 +1,11 @@
-﻿using System;
-using ACILIBj;
-
-namespace CTC.Subsystems
+﻿namespace CTC.Subsystems
 {
     /// <summary>
     /// This class contains all of the logic for controlling the robot's subsystems.
     /// </summary>
     internal class SubsystemController
     {
-        private bool _ghettoShiftToggle = false;
-
-        public SubsystemController()
-        {
-
-        }
-
-        public void IntakeIn()
-        {
-            Arm.SetIntake(1);
-        }
-        public void IntakeOut()
-        {
-            Arm.SetIntake(-1);
-        }
-
-        public void IntakeStop()
-        {
-            Arm.SetIntake(0);
-        }
+        private bool _ghettoShiftToggle;
 
         public void SetArmPower(double power)
         {

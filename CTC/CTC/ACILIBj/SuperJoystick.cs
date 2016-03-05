@@ -11,7 +11,7 @@ namespace ACILIBj
     {
         // Declare joystick
         private readonly Joystick _joy;
-        private bool _pre = false;
+        private bool _pre;
 
         /// <summary>
         /// Enum for joystick POV directions
@@ -38,7 +38,7 @@ namespace ACILIBj
             // Create exception in case negative port is provided
             if (port < 0)
             {
-                throw new ArgumentOutOfRangeException("Joystick port must not be negative!");
+                throw new ArgumentOutOfRangeException(nameof(port));
             }
 
             // Instantiate joystick with provided port

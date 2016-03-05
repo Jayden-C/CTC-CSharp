@@ -21,7 +21,7 @@ namespace ACILIBj
             // Ensure that array provided isn't empty
             if (motorArray.Length == 0)
             {
-                throw new ArgumentNullException("Motor array provided was null!");
+                throw new ArgumentNullException(nameof(motorArray));
             }
             _motorArray = motorArray;
         }

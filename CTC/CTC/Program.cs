@@ -3,7 +3,6 @@
 //code in the CTC.cs class. Any changes made in here most likely
 //will cause the program to not run.
 
-using System.Reflection;
 using WPILib;
 
 namespace CTC

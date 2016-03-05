@@ -18,21 +18,21 @@ namespace ACILIBj
         /// <param name="R1">Right side speed controller(s)</param>
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController R1)
         {
-            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1 });
-            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1 });
+            _left = new PWMSpeedControllerArray(new[] { L1 });
+            _right = new PWMSpeedControllerArray(new [] { R1 });
         }
 
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController L2, PWMSpeedController R1, PWMSpeedController R2)
         {
-            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2 });
-            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2 });
+            _left = new PWMSpeedControllerArray(new [] { L1, L2 });
+            _right = new PWMSpeedControllerArray(new [] { R1, R2 });
         }
 
         public TankDrivetrain(PWMSpeedController L1, PWMSpeedController L2, PWMSpeedController L3,
                               PWMSpeedController R1, PWMSpeedController R2, PWMSpeedController R3)
         {
-            this._left = new PWMSpeedControllerArray(new PWMSpeedController[] { L1, L2, L3 });
-            this._right = new PWMSpeedControllerArray(new PWMSpeedController[] { R1, R2, R3 });
+            _left = new PWMSpeedControllerArray(new [] { L1, L2, L3 });
+            _right = new PWMSpeedControllerArray(new [] { R1, R2, R3 });
         }
 
         /// <summary>

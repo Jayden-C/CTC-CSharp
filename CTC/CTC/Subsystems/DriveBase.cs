@@ -23,7 +23,7 @@ namespace CTC.Subsystems
         private static double TurnMultiplier { get; set; } = 1.0;
 
         // Multiplier which allows for a "ghetto shifter"
-        public static double SpeedMultiplier { get; set; } = 1.0;
+        internal static double SpeedMultiplier { get; set; } = 1.0;
 
         public static void Drive(SuperJoystick joy)
         {
