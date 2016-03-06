@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using WPILib;
+using WPILib.Interfaces;
 
 namespace ACILIBj
 {
@@ -7,10 +9,12 @@ namespace ACILIBj
     /// The purpose of this class is to group together multiple PWM speed controllers
     /// who's values will all be the same no matter what (Any motors in gearboxes essentially). 
     /// </summary>
-    class PWMSpeedControllerArray
+    class PWMSpeedControllerArray : ISpeedController, IPIDOutput
     {
         // Declare speed controller array
         private readonly PWMSpeedController[] _motorArray;
+
+        public bool Inverted { get; set; }
 
         /// <summary>
         /// Constructor for PWMSpeedControllerArray
@@ -39,11 +43,33 @@ namespace ACILIBj
         }
 
         /// <summary>
+        /// Sets each speed controller in array.
+        /// </summary>
+        /// <param name="power"></param>
+        /// <param name="syncGroup"></param>
+        /// <remarks>Obsolete. Call Set(double) instead.</remarks>
+        
+        [Obsolete("This method is obsolete. Call Set(double) instead.")]
+        public void Set(double power, byte syncGroup)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the last let value of the speed controller.
+        /// </summary>
+        /// <returns></returns>
+        public double Get()
+        {
+            return _motorArray.Average(s => s.Get());
+        }
+
+        /// <summary>
         /// Sets PID power for each speed controller in array. This function should
         /// not be explicitly called by the user.
         /// </summary>
         /// <param name="value">PID generated value</param>
-        public void PIDWrite(double value)
+        public void PidWrite(double value)
         {
             foreach(var s in _motorArray)
             {

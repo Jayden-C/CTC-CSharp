@@ -28,11 +28,14 @@ namespace CTC.Subsystems
         public static void Drive(SuperJoystick joy)
         {
             // Change turn multiplier based on robot speed
-            TurnMultiplier = Math.Abs(joy.GetAxis(1, 0.12, -1)) < 0.4 ? 1 : 0.74;
+            TurnMultiplier = Math.Abs(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1)) < 0.4 ? 1 : 0.74;
 
             SmartDashboard.PutNumber("Turn Multiplier", TurnMultiplier);
             SmartDashboard.PutNumber("Speed Multiplier", SpeedMultiplier);
-            Drivetrain.DriveHalo(joy.GetAxis(1, 0.12, -1), joy.GetAxis(4, 0.12, 1) * TurnMultiplier, SpeedMultiplier);
+
+            Drivetrain.DriveHalo(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1),
+                                 joy.GetAxis(SuperJoystick.Axis.RX, 0.12, 1)
+                                 * TurnMultiplier, SpeedMultiplier);
         }
     }
 }

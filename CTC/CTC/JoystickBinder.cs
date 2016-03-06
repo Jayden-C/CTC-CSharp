@@ -8,6 +8,8 @@ namespace CTC
     /// </summary>
     internal static class JoystickBinder
     {
+        private static bool MacMode;
+
         // Define and instantiate joysticks
         private static readonly SuperJoystick Driver = new SuperJoystick(Ports.JoystickDriver);
         private static readonly SuperJoystick Operator = new SuperJoystick(Ports.JoystickOperator);
@@ -22,11 +24,11 @@ namespace CTC
         {
             // Analog axis binds
             DriveBase.Drive(Driver);
-            S.SetArmPower(Operator.GetAxis(5, 0.17, -1));
-            S.SetIntakePower(Operator.GetAxis(1, 0.17, -1));
+            S.SetArmPower(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1));
+            S.SetIntakePower(Operator.GetAxis(SuperJoystick.Axis.LX, 0.17, -1));
             
             // Button binds
-            Driver.RunWhenPressed(() => S.ToggleGhettoShift(), 1);
+            Driver.RunWhenPressed(SuperJoystick.Button.A, () => S.ToggleGhettoShift());
         }
 
     }

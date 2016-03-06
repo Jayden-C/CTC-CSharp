@@ -5,19 +5,19 @@
     /// </summary>
     internal static class Ports
     {
-        public const int LeftMotor1 = 0;
-        public const int LeftMotor2 = 1;
-        public const int RightMotor1 = 2;
-        public const int RightMotor2 = 3;
+        internal const int LeftMotor1 = 0;
+        internal const int LeftMotor2 = 1;
+        internal const int RightMotor1 = 2;
+        internal const int RightMotor2 = 3;
 
-        public const int IntakeMotor = 4;
-        public const int ArmMotorLeft = 5;
-        public const int ArmMotorRight = 6;
+        internal const int IntakeMotor = 4;
+        internal const int ArmMotorLeft = 5;
+        internal const int ArmMotorRight = 6;
 
-        public const int LimitSwitchFront = 0;
-        public const int LimitSwitchBack = 1;
+        internal const int LimitSwitchFront = 0;
+        internal const int LimitSwitchBack = 1;
 
-        public const int JoystickDriver = 0;
-        public const int JoystickOperator = 1;
+        internal const int JoystickDriver = 0;
+        internal const int JoystickOperator = 1;
     }
 }

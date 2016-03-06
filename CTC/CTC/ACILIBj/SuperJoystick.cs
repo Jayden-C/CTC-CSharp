@@ -13,6 +13,8 @@ namespace ACILIBj
         private readonly Joystick _joy;
         private bool _pre;
 
+        #region Enums
+
         /// <summary>
         /// Enum for joystick POV directions
         /// </summary>
@@ -28,6 +30,24 @@ namespace ACILIBj
         {
             Left, Right, All
         }
+
+        /// <summary>
+        /// Enum to make button mapping more understandable
+        /// </summary>
+        public enum Button
+        {
+            A, B, X, Y, LB, RB, Back, Start, LA, RA
+        }
+
+        /// <summary>
+        /// Enum to make axis mapping more understandable
+        /// </summary>
+        public enum Axis
+        {
+            LX, LY, LT, RT, RX, RY
+        }
+
+        #endregion
 
         /// <summary>
         /// Constructor for SuperJoystick class
@@ -46,31 +66,18 @@ namespace ACILIBj
         }
 
         /// <summary>
-        /// Returns the value of an analog axis on the controller
-        /// </summary>
-        /// <param name="axis">Axis number</param>
-        /// <param name="deadzone">Dead zone</param>
-        /// <param name="multiplier">Multiplier</param>
-        /// <returns>Value of specified axis with dead zone</returns>
-        public double GetAxis(int axis, double deadzone, double multiplier)
-        {
-            // If axis value is within specified dead zone, return 0. Otherwise return axis value
-            return Math.Abs(_joy.GetRawAxis(axis)) <= deadzone ? 0 : _joy.GetRawAxis(axis) * multiplier;
-        }
-
-        /// <summary>
         /// Runs the provided delegate when the button is pressed.
         /// </summary>
         /// <param name="runner">Delegate to be run</param>
         /// <param name="button">Desired button</param>
-        public void RunWhenPressed(Action runner, int button)
+        public void RunWhenPressed(Button button, Action runner)
         {
-            if (_joy.GetRawButton(button) && !_pre)
+            if (_joy.GetRawButton((int)button + 1) && !_pre)
             {
                 runner();
                 _pre = true;
             }
-            else if (!_joy.GetRawButton(button))
+            else if (!_joy.GetRawButton((int)button + 1))
             {
                 _pre = false;
             }
@@ -81,14 +88,14 @@ namespace ACILIBj
         /// </summary>
         /// <param name="runner">Delegate to be run</param>
         /// <param name="button">Desired button</param>
-        public void RunWhenReleased(Action runner, int button)
+        public void RunWhenReleased(Button button, Action runner)
         {
-            if (!_joy.GetRawButton(button) && !_pre)
+            if (!_joy.GetRawButton((int)button + 1) && !_pre)
             {
                 runner();
                 _pre = true;
             }
-            else if (_joy.GetRawButton(button))
+            else if (_joy.GetRawButton((int)button + 1))
             {
                 _pre = false;
             }
@@ -100,13 +107,13 @@ namespace ACILIBj
         /// <param name="pressed">Delegate to be run when pressed</param>
         /// <param name="button">Desired button</param>
         /// <param name="released">Delegate to be run when released</param>
-        public void RunWhilePressed(Action pressed, int button, Action released = null)
+        public void RunWhilePressed(Button button, Action pressed, Action released = null)
         {
-            if (_joy.GetRawButton(button))
+            if (_joy.GetRawButton((int)button + 1))
             {
                 pressed();
             }
-            else if (!_joy.GetRawButton(button))
+            else if (!_joy.GetRawButton((int)button + 1))
             {
                 released?.Invoke();
             }
@@ -117,9 +124,22 @@ namespace ACILIBj
         /// </summary>
         /// <param name="button">Button number</param>
         /// <returns>State of the specified button (T or F)</returns>
-        public bool GetButton(int button)
+        public bool GetButton(Button button)
         {
-            return _joy.GetRawButton(button);
+            return _joy.GetRawButton((int)button + 1);
+        }
+
+        /// <summary>
+        /// Returns the value of an analog axis on the controller
+        /// </summary>
+        /// <param name="axis">Axis number</param>
+        /// <param name="deadzone">Dead zone</param>
+        /// <param name="multiplier">Multiplier</param>
+        /// <returns>Value of specified axis with dead zone</returns>
+        public double GetAxis(Axis axis, double deadzone, double multiplier)
+        {
+            // If axis value is within specified dead zone, return 0. Otherwise return axis value
+            return Math.Abs(_joy.GetRawAxis((int)axis)) <= deadzone ? 0 : _joy.GetRawAxis((int)axis) * multiplier;
         }
 
         /// <summary>
