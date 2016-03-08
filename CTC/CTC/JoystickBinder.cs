@@ -8,7 +8,7 @@ namespace CTC
     /// </summary>
     internal static class JoystickBinder
     {
-        private static bool MacMode;
+        public static bool MacMode { get; set; }
 
         // Define and instantiate joysticks
         private static readonly SuperJoystick Driver = new SuperJoystick(Ports.JoystickDriver);
@@ -24,11 +24,28 @@ namespace CTC
         {
             // Analog axis binds
             DriveBase.Drive(Driver);
-            S.SetArmPower(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1));
-            S.SetIntakePower(Operator.GetAxis(SuperJoystick.Axis.LX, 0.17, -1));
-            
+
+            if (!MacMode)
+            {
+                S.SetArmPower(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1));
+                S.SetIntakePower(Operator.GetAxis(SuperJoystick.Axis.LY, 0.17, -1));
+
+                S.SetPortcullisPower(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1) -
+                                     Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+            }
+            else
+            {
+                S.SetIntakePower(Driver.GetButtonDouble(SuperJoystick.Button.LB, 1) - 
+                                 Driver.GetButtonDouble(SuperJoystick.Button.RB, 1));
+
+                S.SetArmPower(Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1) - 
+                              Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+            }
+
             // Button binds
             Driver.RunWhenPressed(SuperJoystick.Button.A, () => S.ToggleGhettoShift());
+            Driver.RunWhenPressed(SuperJoystick.Button.Y, () => S.ToggleRobotFront());
+            Driver.RunWhenPressed(SuperJoystick.Button.Start, () => S.ToggleMacMode());
         }
 
     }

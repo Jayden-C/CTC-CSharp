@@ -19,6 +19,8 @@ namespace CTC.Subsystems
         // Define and instantiate drivetrain
         private static readonly TankDrivetrain Drivetrain = new TankDrivetrain(L1, L2, R1, R2);
 
+        internal static bool ToggleFront { get; set; } = false;
+
         // Multiplier which makes turning more consistent
         private static double TurnMultiplier { get; set; } = 1.0;
 
@@ -32,10 +34,12 @@ namespace CTC.Subsystems
 
             SmartDashboard.PutNumber("Turn Multiplier", TurnMultiplier);
             SmartDashboard.PutNumber("Speed Multiplier", SpeedMultiplier);
+            SmartDashboard.PutBoolean("Robot Front Toggle", ToggleFront);
 
-            Drivetrain.DriveHalo(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1),
-                                 joy.GetAxis(SuperJoystick.Axis.RX, 0.12, 1)
-                                 * TurnMultiplier, SpeedMultiplier);
+            Drivetrain.DriveHalo(
+                ToggleFront ? joy.GetAxis(SuperJoystick.Axis.LY, 0.12, 1) : joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1),
+                joy.GetAxis(SuperJoystick.Axis.RX, 0.12, 1)
+                *TurnMultiplier, SpeedMultiplier);
         }
     }
 }

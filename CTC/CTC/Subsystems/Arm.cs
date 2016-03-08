@@ -9,9 +9,9 @@ namespace CTC.Subsystems
     internal static class Arm
     {
         // Declare and instantiate speed controllers
-        private static readonly Talon ArmLeft = new Talon(Ports.ArmMotorLeft);
-        private static readonly Talon ArmRight = new Talon(Ports.ArmMotorRight);
-        private static readonly Talon Intake = new Talon(Ports.IntakeMotor);
+        private static readonly CANTalon ArmLeft = new CANTalon(Ports.ArmMotorLeft);
+        private static readonly CANTalon ArmRight = new CANTalon(Ports.ArmMotorRight);
+        private static readonly Victor Intake = new Victor(Ports.IntakeMotor);
 
         // Declare and instantiate limit switch
         private static readonly DigitalInput LimitSwitchFront = new DigitalInput(Ports.LimitSwitchFront);

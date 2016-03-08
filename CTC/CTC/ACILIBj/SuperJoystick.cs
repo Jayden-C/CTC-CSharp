@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using WPILib;
 
 namespace ACILIBj
@@ -11,7 +12,7 @@ namespace ACILIBj
     {
         // Declare joystick
         private readonly Joystick _joy;
-        private bool _pre;
+        private readonly bool[] _pre = new bool[10];
 
         #region Enums
 
@@ -72,33 +73,13 @@ namespace ACILIBj
         /// <param name="button">Desired button</param>
         public void RunWhenPressed(Button button, Action runner)
         {
-            if (_joy.GetRawButton((int)button + 1) && !_pre)
+            if (_joy.GetRawButton(((int) button) + 1) && !_pre[(int)button])
             {
                 runner();
-                _pre = true;
+                _pre[(int)button] = true;
             }
-            else if (!_joy.GetRawButton((int)button + 1))
-            {
-                _pre = false;
-            }
-        }
-
-        /// <summary>
-        /// Runs the provided delegate when the button is released
-        /// </summary>
-        /// <param name="runner">Delegate to be run</param>
-        /// <param name="button">Desired button</param>
-        public void RunWhenReleased(Button button, Action runner)
-        {
-            if (!_joy.GetRawButton((int)button + 1) && !_pre)
-            {
-                runner();
-                _pre = true;
-            }
-            else if (_joy.GetRawButton((int)button + 1))
-            {
-                _pre = false;
-            }
+            else if(!_joy.GetRawButton(((int)button) + 1))
+            _pre[(int)button] = false;
         }
 
         /// <summary>
@@ -127,6 +108,18 @@ namespace ACILIBj
         public bool GetButton(Button button)
         {
             return _joy.GetRawButton((int)button + 1);
+        }
+
+        /// <summary>
+        /// Returns the provided value when the button is pressed. 
+        /// Useful for using buttons to control motors.
+        /// </summary>
+        /// <param name="button">Button number</param>
+        /// <param name="value">Value to return</param>
+        /// <returns></returns>
+        public double GetButtonDouble(Button button, double value)
+        {
+            return _joy.GetRawButton(((int)button) + 1) ? value : 0;
         }
 
         /// <summary>
