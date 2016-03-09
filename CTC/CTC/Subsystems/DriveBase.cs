@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using ACILIBj;
 using WPILib;
 using WPILib.SmartDashboard;
@@ -19,6 +20,7 @@ namespace CTC.Subsystems
         // Define and instantiate drivetrain
         private static readonly TankDrivetrain Drivetrain = new TankDrivetrain(L1, L2, R1, R2);
 
+        // Toggle which side of the robot is the front
         internal static bool ToggleFront { get; set; } = false;
 
         // Multiplier which makes turning more consistent
@@ -40,6 +42,13 @@ namespace CTC.Subsystems
                 ToggleFront ? joy.GetAxis(SuperJoystick.Axis.LY, 0.12, 1) : joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1),
                 joy.GetAxis(SuperJoystick.Axis.RX, 0.12, 1)
                 *TurnMultiplier, SpeedMultiplier);
+        }
+
+        public static void DriveTime(int time, double power)
+        {
+            Drivetrain.SetRaw(power, -power);
+            Thread.Sleep(time);
+            Drivetrain.SetRaw(0, 0);
         }
     }
 }

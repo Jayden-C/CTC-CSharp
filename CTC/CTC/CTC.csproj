@@ -67,6 +67,10 @@
     <Compile Include="ACILIBj\PWMSpeedControllerArray.cs" />
     <Compile Include="ACILIBj\SuperJoystick.cs" />
     <Compile Include="ACILIBj\TankDrivetrain.cs" />
+    <Compile Include="Autonomous\AutoCheval.cs" />
+    <Compile Include="Autonomous\AutoChooser.cs" />
+    <Compile Include="Autonomous\AutoLowBar.cs" />
+    <Compile Include="Autonomous\AutoPortcullis.cs" />
     <Compile Include="JoystickBinder.cs" />
     <Compile Include="Ports.cs" />
     <Compile Include="Program.cs" />
@@ -75,11 +79,11 @@
     <Compile Include="Subsystems\Arm.cs" />
     <Compile Include="Subsystems\DriveBase.cs" />
     <Compile Include="Subsystems\Portcullis.cs" />
-    <Compile Include="Subsystems\SubsystemController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

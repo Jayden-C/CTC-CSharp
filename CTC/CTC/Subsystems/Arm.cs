@@ -61,5 +61,33 @@ namespace CTC.Subsystems
             }
 
         }
+
+        /// <summary>
+        /// Lowers arm until it hits the limit switch
+        /// </summary>
+        internal static void Lower()
+        {
+            while (LimitSwitchFront.Get())
+            {
+                ArmLeft.Set(-0.8);
+                ArmRight.Set(0.8);
+            }
+            ArmLeft.Set(0);
+            ArmRight.Set(0);
+        }
+
+        /// <summary>
+        /// Raises arm until it hits the limit switch
+        /// </summary>
+        internal static void Raise()
+        {
+            while (LimitSwitchBack.Get())
+            {
+                ArmLeft.Set(0.7);
+                ArmRight.Set(-0.7);
+            }
+            ArmLeft.Set(0);
+            ArmRight.Set(0);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace ACILIBj
     /// The purpose of this class is to group together multiple PWM speed controllers
     /// who's values will all be the same no matter what (Any motors in gearboxes essentially). 
     /// </summary>
-    class PWMSpeedControllerArray : ISpeedController, IPIDOutput
+    class PWMSpeedControllerArray : ISpeedController
     {
         // Declare speed controller array
         private readonly PWMSpeedController[] _motorArray;

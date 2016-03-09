@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using WPILib;
 
 namespace ACILIBj
@@ -73,12 +72,12 @@ namespace ACILIBj
         /// <param name="button">Desired button</param>
         public void RunWhenPressed(Button button, Action runner)
         {
-            if (_joy.GetRawButton(((int) button) + 1) && !_pre[(int)button])
+            if (_joy.GetRawButton((int) button + 1) && !_pre[(int)button])
             {
                 runner();
                 _pre[(int)button] = true;
             }
-            else if(!_joy.GetRawButton(((int)button) + 1))
+            else if(!_joy.GetRawButton((int)button + 1))
             _pre[(int)button] = false;
         }
 
@@ -119,7 +118,7 @@ namespace ACILIBj
         /// <returns></returns>
         public double GetButtonDouble(Button button, double value)
         {
-            return _joy.GetRawButton(((int)button) + 1) ? value : 0;
+            return _joy.GetRawButton((int)button + 1) ? value : 0;
         }
 
         /// <summary>
