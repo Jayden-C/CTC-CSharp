@@ -130,8 +130,10 @@ namespace ACILIBj
         /// <returns>Value of specified axis with dead zone</returns>
         public double GetAxis(Axis axis, double deadzone, double multiplier)
         {
-            // If axis value is within specified dead zone, return 0. Otherwise return axis value
-            return Math.Abs(_joy.GetRawAxis((int)axis)) <= deadzone ? 0 : _joy.GetRawAxis((int)axis) * multiplier;
+            if (Math.Abs(_joy.GetRawAxis((int) axis)) <= deadzone) return 0;
+
+            return ((_joy.GetRawAxis((int) axis) - deadzone * Math.Sign(_joy.GetRawAxis((int)axis))) /(1 - deadzone)) * multiplier;
+
         }
 
         /// <summary>

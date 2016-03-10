@@ -3,7 +3,6 @@ using WPILib;
 
 namespace CTC
 {
-
     public class CTC : IterativeRobot
     {
         private static readonly AutoChooser Auto = new AutoChooser();

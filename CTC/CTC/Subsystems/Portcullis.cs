@@ -40,29 +40,46 @@ namespace CTC.Subsystems
         }
 
         /// <summary>
-        /// Extends the portcullis ramp. Intended to be used in a separate thread.
+        /// Extends the portcullis ramp.
         /// </summary>
-        public static void Deploy()
+        public static void Deploy(bool join)
+        {
+            var thread = new Thread(DeployThread);
+            thread.Start();
+            if (join)
+                thread.Join();
+        }
+
+        private static void DeployThread()
         {
             while (LimitSwitchOut.Get())
             {
-                PortcullisMotor.Set(-0.7);
+                PortcullisMotor.Set(-0.9);
                 Thread.Sleep(20);
             }
             PortcullisMotor.Set(0);
         }
 
         /// <summary>
-        /// Retracts the portcullis ramp. Intended to be used in a separate thread.
+        /// Retracts the portcullis ramp.
         /// </summary>
-        public static void Retract()
+        public static void Retract(bool join)
+        {
+            var thread = new Thread(RetractThread);
+            thread.Start();
+            if (join)
+                thread.Join();
+        }
+
+        private static void RetractThread()
         {
             while (LimitSwitchIn.Get())
             {
-                PortcullisMotor.Set(0.7);
+                PortcullisMotor.Set(0.9);
                 Thread.Sleep(20);
             }
             PortcullisMotor.Set(0);
         }
+        
     }
 }

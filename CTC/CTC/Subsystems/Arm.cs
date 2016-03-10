@@ -1,4 +1,5 @@
-﻿using WPILib;
+﻿using System.Threading;
+using WPILib;
 using WPILib.SmartDashboard;
 
 namespace CTC.Subsystems
@@ -65,7 +66,16 @@ namespace CTC.Subsystems
         /// <summary>
         /// Lowers arm until it hits the limit switch
         /// </summary>
-        internal static void Lower()
+        internal static void Lower(bool join)
+        {
+            var lowerThread = new Thread(LowerThread);
+            lowerThread.Start();
+
+            if (join)
+                lowerThread.Join();
+        }
+
+        private static void LowerThread()
         {
             while (LimitSwitchFront.Get())
             {
@@ -79,7 +89,16 @@ namespace CTC.Subsystems
         /// <summary>
         /// Raises arm until it hits the limit switch
         /// </summary>
-        internal static void Raise()
+        internal static void Raise(bool join)
+        {
+            var raiseThread = new Thread(RaiseThread);
+            raiseThread.Start();
+
+            if (join)
+                raiseThread.Join();
+        }
+
+        private static void RaiseThread()
         {
             while (LimitSwitchBack.Get())
             {
@@ -89,5 +108,6 @@ namespace CTC.Subsystems
             ArmLeft.Set(0);
             ArmRight.Set(0);
         }
+        
     }
 }

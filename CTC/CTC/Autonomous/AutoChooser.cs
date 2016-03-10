@@ -39,13 +39,13 @@ namespace CTC.Autonomous
                 case Autos.Default:
                     break;
                 case Autos.Portculiis:
-                    AutoPortcullis.Run();
+                    PortcullisAuto.Run();
                     break;
                 case Autos.Cheval:
-                    AutoCheval.Run();
+                    ChevalAuto.Run();
                     break;
                 case Autos.LowBar:
-                    AutoLowBar.Run();
+                    LowBarAuto.Run();
                     break;
             }
         }

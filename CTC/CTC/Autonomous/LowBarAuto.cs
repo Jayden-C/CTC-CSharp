@@ -2,12 +2,12 @@
 
 namespace CTC.Autonomous
 {
-    internal static class AutoCheval
+    internal static class LowBarAuto
     {
         internal static void Run()
         {
-            Arm.Lower();
-            DriveBase.DriveTime(1000, 0.4);   
+            Arm.Lower(true);
+            DriveBase.DriveTime(2000, -0.5);
         }
     }
 }

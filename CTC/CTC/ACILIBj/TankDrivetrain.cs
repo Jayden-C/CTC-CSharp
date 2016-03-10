@@ -72,5 +72,24 @@ namespace ACILIBj
             _left.Set((leftStick + rightStick) * speedMod);
             _right.Set((leftStick - rightStick) * -speedMod);
         }
+
+        public void DriveHalo(double leftStick, double rightStick, double speedMod, bool subtractive)
+        {
+            if (rightStick > 0 && leftStick != 0.0d)
+            {
+                _left.Set(leftStick * speedMod);
+                _right.Set((leftStick - rightStick) * -speedMod);
+            }
+            else if (rightStick < 0 && leftStick != 0.0d)
+            {
+                _left.Set((leftStick + rightStick) * speedMod);
+                _right.Set(leftStick * -speedMod);
+            }
+            else
+            {
+                _left.Set((leftStick + rightStick) * speedMod);
+                _right.Set((leftStick - rightStick) * -speedMod);
+            }
+        }
     }
 }

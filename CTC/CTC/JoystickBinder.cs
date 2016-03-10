@@ -1,6 +1,7 @@
 ﻿using System;
 using ACILIBj;
 using CTC.Subsystems;
+using WPILib.SmartDashboard;
 
 namespace CTC
 {
@@ -29,41 +30,34 @@ namespace CTC
                 Arm.SetIntake(Operator.GetAxis(SuperJoystick.Axis.LY, 0.17, -1));
 
                 Portcullis.Set(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1) -
-                                   Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+                               Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1));
             }
             else
             {
                 Arm.SetIntake(Driver.GetButtonDouble(SuperJoystick.Button.LB, 1) - 
-                               Driver.GetButtonDouble(SuperJoystick.Button.RB, 1));
+                              Driver.GetButtonDouble(SuperJoystick.Button.RB, 1));
 
                 Arm.SetArm(Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1) - 
-                            Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+                           Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1));
 
                 Portcullis.Set(Driver.GetButtonDouble(SuperJoystick.Button.X, 0.8)
-                                 - Driver.GetButtonDouble(SuperJoystick.Button.B, 0.8));
+                             - Driver.GetButtonDouble(SuperJoystick.Button.B, 0.8));
             }
 
             // Button binds
             Driver.RunWhenPressed(SuperJoystick.Button.A, ToggleGhettoShift);
-            Driver.RunWhenPressed(SuperJoystick.Button.Y, ToggleRobotFront);
-            Driver.RunWhenPressed(SuperJoystick.Button.Start, ToggleMacMode);
-        }
+            Driver.RunWhenPressed(SuperJoystick.Button.Y, () => DriveBase.ToggleFront = !DriveBase.ToggleFront);
+            Driver.RunWhenPressed(SuperJoystick.Button.Start, () => MacMode = !MacMode);
 
-        private static void ToggleRobotFront()
-        {
-            DriveBase.ToggleFront = !DriveBase.ToggleFront;
+            Operator.RunWhenPressed(SuperJoystick.Button.X, () => Portcullis.Deploy(false));
+            Operator.RunWhenPressed(SuperJoystick.Button.Y, () => Portcullis.Retract(false));
+    
         }
-
-        private static void ToggleMacMode()
-        {
-            MacMode = !MacMode;
-        }
-
+        
         private static void ToggleGhettoShift()
         {
             DriveBase.SpeedMultiplier = Math.Abs(DriveBase.SpeedMultiplier - 1) < 0.5 ? 0.5 : 1;
         }
-
     }
 
 }

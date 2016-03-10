@@ -67,10 +67,10 @@
     <Compile Include="ACILIBj\PWMSpeedControllerArray.cs" />
     <Compile Include="ACILIBj\SuperJoystick.cs" />
     <Compile Include="ACILIBj\TankDrivetrain.cs" />
-    <Compile Include="Autonomous\AutoCheval.cs" />
+    <Compile Include="Autonomous\ChevalAuto.cs" />
     <Compile Include="Autonomous\AutoChooser.cs" />
-    <Compile Include="Autonomous\AutoLowBar.cs" />
-    <Compile Include="Autonomous\AutoPortcullis.cs" />
+    <Compile Include="Autonomous\LowBarAuto.cs" />
+    <Compile Include="Autonomous\PortcullisAuto.cs" />
     <Compile Include="JoystickBinder.cs" />
     <Compile Include="Ports.cs" />
     <Compile Include="Program.cs" />
