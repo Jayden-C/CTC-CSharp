@@ -48,9 +48,6 @@ namespace CTC
             Driver.RunWhenPressed(SuperJoystick.Button.A, ToggleGhettoShift);
             Driver.RunWhenPressed(SuperJoystick.Button.Y, () => DriveBase.ToggleFront = !DriveBase.ToggleFront);
             Driver.RunWhenPressed(SuperJoystick.Button.Start, () => MacMode = !MacMode);
-
-            Operator.RunWhenPressed(SuperJoystick.Button.X, () => Portcullis.Deploy(false));
-            Operator.RunWhenPressed(SuperJoystick.Button.Y, () => Portcullis.Retract(false));
     
         }
         

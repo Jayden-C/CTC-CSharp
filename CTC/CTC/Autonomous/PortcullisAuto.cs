@@ -1,15 +1,30 @@
-﻿using System.Threading;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using CTC.Subsystems;
 
 namespace CTC.Autonomous
 {
     internal static class PortcullisAuto
     {
+        private static readonly Thread PortThread = new Thread(Portcullis.Deploy);
+
         internal static void Run()
         {
-            Portcullis.Deploy(false);
-            Arm.Lower(true);
-            DriveBase.DriveTime(1300, -0.5);
+            PortThread.Start();
+            DriveBase.DriveTime(1300, -0.35);
+            Arm.Lower();
+            DriveBase.DriveTime(1800, -0.6);
+            DriveBase.DriveTime(500, 0.35);
+        }
+
+        internal static void Abort()
+        {
+            Console.WriteLine("Auto aborted");
+            PortThread.Abort();
+            Portcullis.Set(0);
+            Arm.SetArm(0);
+            DriveBase.DriveTime(1, 0);
         }
 
     }

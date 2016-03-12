@@ -7,6 +7,8 @@ namespace CTC.Autonomous
     {
         private static readonly SendableChooser Chooser = new SendableChooser();
 
+        private static readonly Thread AutoThread = new Thread(AutoSwitch);
+
         private enum Autos
         {
             Default, Portculiis, Cheval, LowBar
@@ -27,9 +29,27 @@ namespace CTC.Autonomous
 
         internal void Run()
         {
-            var autoThread = new Thread(AutoSwitch);
-            autoThread.Start();
-            autoThread.Join();
+            AutoThread.Start();
+        }
+
+        internal void Abort()
+        {
+            switch ((Autos)Chooser.GetSelected())
+            {
+                case Autos.Default:
+                    break;
+                case Autos.Portculiis:
+                    PortcullisAuto.Abort();
+                    break;
+                case Autos.Cheval:
+                    ChevalAuto.Abort();
+                    break;
+                case Autos.LowBar:
+                    LowBarAuto.Abort();
+                    break;
+            }
+
+            AutoThread.Abort();
         }
 
         private static void AutoSwitch()

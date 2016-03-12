@@ -6,8 +6,14 @@ namespace CTC.Autonomous
     {
         internal static void Run()
         {
-            Arm.Lower(true);
+            Arm.Lower();
             DriveBase.DriveTime(2000, -0.5);
+        }
+
+        internal static void Abort()
+        {
+            Arm.SetArm(0);
+            DriveBase.DriveTime(1, 0);
         }
     }
 }

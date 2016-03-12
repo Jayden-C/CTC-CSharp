@@ -42,15 +42,7 @@ namespace CTC.Subsystems
         /// <summary>
         /// Extends the portcullis ramp.
         /// </summary>
-        public static void Deploy(bool join)
-        {
-            var thread = new Thread(DeployThread);
-            thread.Start();
-            if (join)
-                thread.Join();
-        }
-
-        private static void DeployThread()
+        internal static void Deploy()
         {
             while (LimitSwitchOut.Get())
             {
@@ -63,15 +55,7 @@ namespace CTC.Subsystems
         /// <summary>
         /// Retracts the portcullis ramp.
         /// </summary>
-        public static void Retract(bool join)
-        {
-            var thread = new Thread(RetractThread);
-            thread.Start();
-            if (join)
-                thread.Join();
-        }
-
-        private static void RetractThread()
+        internal static void Retract()
         {
             while (LimitSwitchIn.Get())
             {

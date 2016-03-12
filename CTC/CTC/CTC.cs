@@ -1,4 +1,5 @@
-﻿using CTC.Autonomous;
+﻿using System;
+using CTC.Autonomous;
 using WPILib;
 
 namespace CTC
@@ -34,6 +35,15 @@ namespace CTC
         public override void TestPeriodic()
         {
 
+        }
+
+        public override void DisabledInit()
+        {
+            if (_autoRan)
+            {
+                Console.WriteLine("ABORTING AUTO");
+                Auto.Abort();
+            }
         }
     }
 }
