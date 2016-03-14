@@ -32,16 +32,16 @@ namespace CTC.Subsystems
         public static void Drive(SuperJoystick joy)
         {
             // Change turn multiplier based on robot speed
-            TurnMultiplier = Math.Abs(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1)) < 0.4 ? 1 : 0.74;
+            TurnMultiplier = Math.Abs(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1, false)) < 0.4 ? 1 : 0.74;
 
             SmartDashboard.PutNumber("Turn Multiplier", TurnMultiplier);
             SmartDashboard.PutNumber("Speed Multiplier", SpeedMultiplier);
             SmartDashboard.PutBoolean("Robot Front Toggle", ToggleFront);
 
             Drivetrain.DriveHalo(
-                ToggleFront ? joy.GetAxis(SuperJoystick.Axis.LY, 0.12, 1) : joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1),
-                joy.GetAxis(SuperJoystick.Axis.RX, 0.12, 1)
-                *TurnMultiplier, SpeedMultiplier);
+                ToggleFront ? joy.GetAxis(SuperJoystick.Axis.LY, 0.08, 1, true) : joy.GetAxis(SuperJoystick.Axis.LY, 0.08, -1, true),
+                joy.GetAxis(SuperJoystick.Axis.RX, 0.08, 1, true)
+                *0.74, SpeedMultiplier);
         }
 
         public static void DriveTime(int time, double power)

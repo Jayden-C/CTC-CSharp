@@ -26,27 +26,27 @@ namespace CTC
 
             if (!MacMode)
             {
-                Arm.SetArm(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1));
-                Arm.SetIntake(Operator.GetAxis(SuperJoystick.Axis.LY, 0.17, -1));
+                Arm.SetArm(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1, false));
+                Arm.SetIntake(Operator.GetAxis(SuperJoystick.Axis.LY, 0.17, -1, false));
 
-                Portcullis.Set(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1) -
-                               Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+                Portcullis.Set(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) -
+                               Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1, false));
             }
             else
             {
                 Arm.SetIntake(Driver.GetButtonDouble(SuperJoystick.Button.LB, 1) - 
                               Driver.GetButtonDouble(SuperJoystick.Button.RB, 1));
 
-                Arm.SetArm(Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1) - 
-                           Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1));
+                Arm.SetArm(Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) - 
+                           Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1, false));
 
                 Portcullis.Set(Driver.GetButtonDouble(SuperJoystick.Button.X, 0.8)
                              - Driver.GetButtonDouble(SuperJoystick.Button.B, 0.8));
             }
 
             // Button binds
-            Driver.RunWhenPressed(SuperJoystick.Button.A, ToggleGhettoShift);
-            Driver.RunWhenPressed(SuperJoystick.Button.Y, () => DriveBase.ToggleFront = !DriveBase.ToggleFront);
+            Driver.RunWhenPressed(SuperJoystick.Button.Y, ToggleGhettoShift);
+            Driver.RunWhenPressed(SuperJoystick.Button.A, () => DriveBase.ToggleFront = !DriveBase.ToggleFront);
             Driver.RunWhenPressed(SuperJoystick.Button.Start, () => MacMode = !MacMode);
     
         }

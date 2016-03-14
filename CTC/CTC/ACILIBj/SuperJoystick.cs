@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using WPILib;
 
 namespace ACILIBj
@@ -65,6 +66,8 @@ namespace ACILIBj
             _joy = new Joystick(port);
         }
 
+        #region Runners
+
         /// <summary>
         /// Runs the provided delegate when the button is pressed.
         /// </summary>
@@ -99,6 +102,10 @@ namespace ACILIBj
             }
         }
 
+        #endregion
+
+        #region Getters
+
         /// <summary>
         /// Returns the state of the specified button
         /// </summary>
@@ -127,13 +134,15 @@ namespace ACILIBj
         /// <param name="axis">Axis number</param>
         /// <param name="deadzone">Dead zone</param>
         /// <param name="multiplier">Multiplier</param>
+        /// <param name="rooted">Square root the input</param>
         /// <returns>Value of specified axis with dead zone</returns>
-        public double GetAxis(Axis axis, double deadzone, double multiplier)
+        public double GetAxis(Axis axis, double deadzone, double multiplier, bool rooted)
         {
-            if (Math.Abs(_joy.GetRawAxis((int) axis)) <= deadzone) return 0;
+            //if (Math.Abs(_joy.GetRawAxis((int) axis)) <= deadzone) return 0;
 
-            return ((_joy.GetRawAxis((int) axis) - deadzone * Math.Sign(_joy.GetRawAxis((int)axis))) /(1 - deadzone)) * multiplier;
+            //return (_joy.GetRawAxis((int) axis) - deadzone * Math.Sign(_joy.GetRawAxis((int)axis))) /(1 - deadzone) * multiplier;
 
+            return rooted ? SignedRoot(Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier)) : Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier);
         }
 
         /// <summary>
@@ -161,6 +170,10 @@ namespace ACILIBj
             }
         }
 
+        #endregion
+
+        #region Setters
+
         /// <summary>
         /// Sets the rumble motors in the controller, useful for feedback to the drivers
         /// </summary>
@@ -182,5 +195,35 @@ namespace ACILIBj
                     break;
             }
         }
+
+        #endregion
+
+        #region Utils
+
+        /// <summary>
+        /// Returns 0 while the input is within deadzone, otherwise returns input
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="deadzone"></param>
+        /// <param name="multiplier"></param>
+        /// <returns></returns>
+        private static double Deadzone(double input, double deadzone, double multiplier)
+        {
+            if (Math.Abs(input) <= deadzone) return 0;
+
+            return ((input - Math.Sign(input)*deadzone)/(1 - deadzone) * multiplier);
+        }
+
+        /// <summary>
+        /// Gets the square root of the input and appends its original sign after square rooting
+        /// </summary>
+        /// <param name="input">Input</param>
+        /// <returns></returns>
+        private static double SignedRoot(double input)
+        {
+            return Math.Sqrt(Math.Abs(input))*Math.Sign(input);
+        }
+
+        #endregion
     }
 }
