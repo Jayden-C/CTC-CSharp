@@ -72,6 +72,7 @@ namespace CTC.Subsystems
             {
                 ArmLeft.Set(-0.8);
                 ArmRight.Set(0.8);
+                Thread.Sleep(20);
             }
             ArmLeft.Set(0);
             ArmRight.Set(0);
@@ -86,6 +87,7 @@ namespace CTC.Subsystems
             {
                 ArmLeft.Set(0.7);
                 ArmRight.Set(-0.7);
+                Thread.Sleep(20);
             }
             ArmLeft.Set(0);
             ArmRight.Set(0);

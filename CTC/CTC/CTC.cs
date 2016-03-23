@@ -13,6 +13,7 @@ namespace CTC
         public override void RobotInit()
         {
             Auto.PutData();
+            LowGoalAuto.InitGyro();
         }
 
         public override void AutonomousInit()
@@ -25,6 +26,17 @@ namespace CTC
             if (_autoRan) return;
             Auto.Run();
             _autoRan = true;
+        }
+
+        public override void TeleopInit()
+        {
+            if (_autoRan)
+            {
+                Auto.Abort();
+                Console.WriteLine("ABORTING AUTO");
+                _autoRan = false;
+            }
+                
         }
 
         public override void TeleopPeriodic()

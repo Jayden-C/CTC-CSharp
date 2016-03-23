@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using WPILib.SmartDashboard;
 
 namespace CTC.Autonomous
@@ -11,7 +12,7 @@ namespace CTC.Autonomous
 
         private enum Autos
         {
-            Default, Portculiis, Cheval, LowBar
+            Default, Portculiis, Cheval, LowBar, Drive, LowGoal, Test
         }
 
         public AutoChooser()
@@ -20,6 +21,9 @@ namespace CTC.Autonomous
             Chooser.AddObject("Portcullis", Autos.Portculiis);
             Chooser.AddObject("Cheval de Frise", Autos.Cheval);
             Chooser.AddObject("Low Bar", Autos.LowBar);
+            Chooser.AddObject("Drive Only", Autos.Drive);
+            Chooser.AddObject("Test Auto", Autos.Test);
+            Chooser.AddObject("Low GOAL", Autos.LowGoal);
         }
 
         internal void PutData()
@@ -47,6 +51,17 @@ namespace CTC.Autonomous
                 case Autos.LowBar:
                     LowBarAuto.Abort();
                     break;
+                case Autos.Drive:
+                    DriveAuto.Abort();
+                    break;
+                case Autos.Test:
+                    TestAuto.Abort();
+                    break;
+                case Autos.LowGoal:
+                    LowGoalAuto.Abort();
+                    break;
+                default:
+                    break;
             }
 
             AutoThread.Abort();
@@ -54,7 +69,7 @@ namespace CTC.Autonomous
 
         private static void AutoSwitch()
         {
-            switch ((Autos)Chooser.GetSelected())
+            switch ((Autos) Chooser.GetSelected())
             {
                 case Autos.Default:
                     break;
@@ -67,6 +82,17 @@ namespace CTC.Autonomous
                 case Autos.LowBar:
                     LowBarAuto.Run();
                     break;
+                case Autos.Drive:
+                    DriveAuto.Run();
+                    break;
+                case Autos.Test:
+                    TestAuto.Run();
+                    break;
+                case Autos.LowGoal:
+                    LowGoalAuto.Run();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

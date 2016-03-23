@@ -29,8 +29,8 @@ namespace CTC
                 Arm.SetArm(Operator.GetAxis(SuperJoystick.Axis.RY, 0.17, -1, false));
                 Arm.SetIntake(Operator.GetAxis(SuperJoystick.Axis.LY, 0.17, -1, false));
 
-                Portcullis.Set(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) -
-                               Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1, false));
+                Portcullis.Set(Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1, false) -
+                               Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1, false));
             }
             else
             {
@@ -45,7 +45,7 @@ namespace CTC
             }
 
             // Button binds
-            Driver.RunWhenPressed(SuperJoystick.Button.Y, ToggleGhettoShift);
+            Driver.RunWhenPressed(SuperJoystick.Button.Back, ToggleGhettoShift);
             Driver.RunWhenPressed(SuperJoystick.Button.A, () => DriveBase.ToggleFront = !DriveBase.ToggleFront);
             Driver.RunWhenPressed(SuperJoystick.Button.Start, () => MacMode = !MacMode);
     

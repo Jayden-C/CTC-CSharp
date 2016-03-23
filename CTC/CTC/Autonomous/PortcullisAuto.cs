@@ -14,7 +14,7 @@ namespace CTC.Autonomous
             PortThread.Start();
             DriveBase.DriveTime(1300, -0.35);
             Arm.Lower();
-            DriveBase.DriveTime(1800, -0.6);
+            DriveBase.DriveTime(2100, -0.6);
             DriveBase.DriveTime(500, 0.35);
         }
 

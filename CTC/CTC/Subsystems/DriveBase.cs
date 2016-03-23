@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using ACILIBj;
 using WPILib;
@@ -23,10 +24,7 @@ namespace CTC.Subsystems
         // Toggle which side of the robot is the front
         internal static bool ToggleFront { get; set; } = false;
 
-        // Multiplier which makes turning more consistent
         private static double TurnMultiplier { get; set; } = 1.0;
-
-        // Multiplier which allows for a "ghetto shifter"
         internal static double SpeedMultiplier { get; set; } = 1.0;
 
         public static void Drive(SuperJoystick joy)
@@ -40,8 +38,8 @@ namespace CTC.Subsystems
 
             Drivetrain.DriveHalo(
                 ToggleFront ? joy.GetAxis(SuperJoystick.Axis.LY, 0.08, 1, true) : joy.GetAxis(SuperJoystick.Axis.LY, 0.08, -1, true),
-                joy.GetAxis(SuperJoystick.Axis.RX, 0.08, 1, true)
-                *0.74, SpeedMultiplier);
+                joy.GetAxis(SuperJoystick.Axis.RX, 0.08, 1, false)
+                *1, SpeedMultiplier);
         }
 
         public static void DriveTime(int time, double power)
@@ -50,5 +48,16 @@ namespace CTC.Subsystems
             Thread.Sleep(time);
             Drivetrain.SetRaw(0, 0);
         }
+
+        public static void SetRaw(double leftPower, double rightPower)
+        {
+            Drivetrain.SetRaw(leftPower, rightPower);
+        }
+
+        public static void ArcTurn(int time, double power, bool goLeft)
+        {
+            Drivetrain.SetRaw(power, -power);
+        }
+        
     }
 }

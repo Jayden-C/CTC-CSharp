@@ -11,11 +11,13 @@ namespace CTC.Autonomous
         internal static void Run()
         {
             DriveBase.DriveTime(1300, -0.35);
-            Thread.Sleep(600);
+            Arm.Raise();
             Portcullis.Deploy();
             DriveBase.DriveTime(700, -0.6);
             PortRetract.Start();
             DriveBase.DriveTime(700, -0.8);
+            Thread.Sleep(700);
+            DriveBase.DriveTime(1300, -0.35);
             DriveBase.DriveTime(500, 0.35);
         }
 

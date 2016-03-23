@@ -69,8 +69,11 @@
     <Compile Include="ACILIBj\TankDrivetrain.cs" />
     <Compile Include="Autonomous\ChevalAuto.cs" />
     <Compile Include="Autonomous\AutoChooser.cs" />
+    <Compile Include="Autonomous\DriveAuto.cs" />
     <Compile Include="Autonomous\LowBarAuto.cs" />
+    <Compile Include="Autonomous\LowGoalAuto.cs" />
     <Compile Include="Autonomous\PortcullisAuto.cs" />
+    <Compile Include="Autonomous\TestAuto.cs" />
     <Compile Include="JoystickBinder.cs" />
     <Compile Include="Ports.cs" />
     <Compile Include="Program.cs" />

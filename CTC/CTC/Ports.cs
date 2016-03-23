@@ -1,5 +1,4 @@
-﻿
-namespace CTC
+﻿namespace CTC
 {
     /// <summary>
     /// Static class which contains constants for each port on the robot.
@@ -21,6 +20,8 @@ namespace CTC
         internal const int LimitSwitchBack = 1;
         internal const int LimitSwitchOut = 2;
         internal const int LimitSwitchIn = 3;
+
+        internal const int Gyro = 0;
 
         internal const int JoystickDriver = 0;
         internal const int JoystickOperator = 1;
