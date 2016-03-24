@@ -64,9 +64,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACILIBj\PIDController.cs" />
     <Compile Include="ACILIBj\PWMSpeedControllerArray.cs" />
     <Compile Include="ACILIBj\SuperJoystick.cs" />
     <Compile Include="ACILIBj\TankDrivetrain.cs" />
+    <Compile Include="ACILIBj\Utilities.cs" />
     <Compile Include="Autonomous\ChevalAuto.cs" />
     <Compile Include="Autonomous\AutoChooser.cs" />
     <Compile Include="Autonomous\DriveAuto.cs" />

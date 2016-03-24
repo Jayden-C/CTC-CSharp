@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using WPILib;
 
 namespace ACILIBj
@@ -142,7 +141,7 @@ namespace ACILIBj
 
             //return (_joy.GetRawAxis((int) axis) - deadzone * Math.Sign(_joy.GetRawAxis((int)axis))) /(1 - deadzone) * multiplier;
 
-            return rooted ? SignedRoot(Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier)) : Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier);
+            return rooted ? Utilities.SignedRoot(Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier)) : Deadzone(_joy.GetRawAxis((int)axis), deadzone, multiplier);
         }
 
         /// <summary>
@@ -212,16 +211,6 @@ namespace ACILIBj
             if (Math.Abs(input) <= deadzone) return 0;
 
             return ((input - Math.Sign(input)*deadzone)/(1 - deadzone) * multiplier);
-        }
-
-        /// <summary>
-        /// Gets the square root of the input and appends its original sign after square rooting
-        /// </summary>
-        /// <param name="input">Input</param>
-        /// <returns></returns>
-        private static double SignedRoot(double input)
-        {
-            return Math.Sqrt(Math.Abs(input))*Math.Sign(input);
         }
 
         #endregion
