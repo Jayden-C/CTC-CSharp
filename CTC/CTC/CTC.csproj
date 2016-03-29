@@ -81,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="CTC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sensors\NavX.cs" />
     <Compile Include="Subsystems\Arm.cs" />
     <Compile Include="Subsystems\DriveBase.cs" />
     <Compile Include="Subsystems\Portcullis.cs" />

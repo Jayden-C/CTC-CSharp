@@ -25,6 +25,8 @@ namespace CTC.Subsystems
 
         public static void SetArm(double power)
         {
+            power *= 0.7;
+
             SmartDashboard.PutBoolean("Limit Switch Front", LimitSwitchFront.Get());
             SmartDashboard.PutBoolean("Limit Switch Back", LimitSwitchBack.Get());
 

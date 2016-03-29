@@ -33,7 +33,7 @@ namespace ACILIBj
 
         public double Calculate(double error)
         {
-            var dTime = (DateTime.Now.Ticks/TimeSpan.TicksPerMillisecond - _lastTime)/10;
+            var dTime = (DateTime.Now.Ticks/TimeSpan.TicksPerMillisecond - _lastTime)/10.0;
             _lastTime = DateTime.Now.Ticks/TimeSpan.TicksPerMillisecond;
 
             var changeInError = dTime != 0 ? (error - _lastError) / dTime : 0;
@@ -47,6 +47,10 @@ namespace ACILIBj
             }
 
             _lastError = error;
+
+            Console.WriteLine("P: " + P*error);
+            Console.WriteLine("I: " + I*_errorSum);
+            Console.WriteLine("D: " + D*changeInError);
 
             return P*error + I*_errorSum + D*changeInError;
         }

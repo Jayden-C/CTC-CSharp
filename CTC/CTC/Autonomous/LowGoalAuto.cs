@@ -7,8 +7,6 @@ namespace CTC.Autonomous
 {
     internal static class LowGoalAuto
     {
-        private static readonly Thread PortLowerThread = new Thread(Portcullis.Deploy);
-
         private static AnalogGyro _gyro;
 
         internal static void InitGyro()
@@ -20,7 +18,6 @@ namespace CTC.Autonomous
         {
             Arm.Lower();
             DriveBase.DriveTime(700, 0.35);
-            PortLowerThread.Start();
             DriveBase.DriveTime(1678, 0.5);
             Thread.Sleep(1000);
 

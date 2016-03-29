@@ -1,6 +1,8 @@
 ﻿using System;
 using CTC.Autonomous;
+using CTC.Sensors;
 using WPILib;
+using WPILib.SmartDashboard;
 
 namespace CTC
 {
@@ -13,7 +15,7 @@ namespace CTC
         public override void RobotInit()
         {
             Auto.PutData();
-            LowGoalAuto.InitGyro();
+            //LowGoalAuto.InitGyro();
         }
 
         public override void AutonomousInit()

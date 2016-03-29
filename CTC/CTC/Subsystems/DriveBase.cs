@@ -24,7 +24,7 @@ namespace CTC.Subsystems
         // Toggle which side of the robot is the front
         internal static bool ToggleFront { get; set; } = false;
 
-        private static double TurnMultiplier { get; set; } = 1.0;
+        private static double TurnMultiplier { get; set; } = 0.7;
         internal static double SpeedMultiplier { get; set; } = 1.0;
 
         public static void Drive(SuperJoystick joy)
