@@ -72,8 +72,8 @@ namespace CTC.Subsystems
         {
             while (LimitSwitchFront.Get())
             {
-                ArmLeft.Set(-0.8);
-                ArmRight.Set(0.8);
+                ArmLeft.Set(-0.5);
+                ArmRight.Set(0.5);
                 Thread.Sleep(20);
             }
             ArmLeft.Set(0);
@@ -87,8 +87,8 @@ namespace CTC.Subsystems
         {
             while (LimitSwitchBack.Get())
             {
-                ArmLeft.Set(0.7);
-                ArmRight.Set(-0.7);
+                ArmLeft.Set(0.5);
+                ArmRight.Set(-0.5);
                 Thread.Sleep(20);
             }
             ArmLeft.Set(0);

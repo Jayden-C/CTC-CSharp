@@ -26,6 +26,12 @@ namespace ACILIBj
             return Math.Abs(input) > clamp ? clamp*Math.Sign(input) : input;
         }
 
+        /// <summary>
+        /// Returns the mod of the provided value with its sign
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static double SignedMod(double a, double n)
         {
             return (a%n + n)%n;

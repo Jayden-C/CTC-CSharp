@@ -24,13 +24,13 @@ namespace CTC.Subsystems
         // Toggle which side of the robot is the front
         internal static bool ToggleFront { get; set; } = false;
 
-        private static double TurnMultiplier { get; set; } = 0.7;
+        private static double TurnMultiplier { get; } = 0.7;
         internal static double SpeedMultiplier { get; set; } = 1.0;
 
         public static void Drive(SuperJoystick joy)
         {
             // Change turn multiplier based on robot speed
-            TurnMultiplier = Math.Abs(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1, false)) < 0.4 ? 1 : 0.74;
+            //TurnMultiplier = Math.Abs(joy.GetAxis(SuperJoystick.Axis.LY, 0.12, -1, false)) < 0.4 ? 1 : 0.74;
 
             SmartDashboard.PutNumber("Turn Multiplier", TurnMultiplier);
             SmartDashboard.PutNumber("Speed Multiplier", SpeedMultiplier);
@@ -42,6 +42,11 @@ namespace CTC.Subsystems
                 *1, SpeedMultiplier);
         }
 
+        /// <summary>
+        /// Drives the robot forward or backward for a set amount of time
+        /// </summary>
+        /// <param name="time">Amount of time to drive</param>
+        /// <param name="power">Power to drive at</param>
         public static void DriveTime(int time, double power)
         {
             Drivetrain.SetRaw(power, -power);
@@ -49,14 +54,14 @@ namespace CTC.Subsystems
             Drivetrain.SetRaw(0, 0);
         }
 
+        /// <summary>
+        /// Sets the left and right side of the drivetrain to the provided values
+        /// </summary>
+        /// <param name="leftPower">Left side power</param>
+        /// <param name="rightPower">Right side power</param>
         public static void SetRaw(double leftPower, double rightPower)
         {
             Drivetrain.SetRaw(leftPower, rightPower);
-        }
-
-        public static void ArcTurn(int time, double power, bool goLeft)
-        {
-            Drivetrain.SetRaw(power, -power);
         }
         
     }

@@ -57,6 +57,7 @@ namespace CTC
             {
                 Console.WriteLine("ABORTING AUTO");
                 Auto.Abort();
+                _autoRan = false;
             }
         }
     }

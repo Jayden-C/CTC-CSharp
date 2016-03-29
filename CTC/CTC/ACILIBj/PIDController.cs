@@ -23,6 +23,7 @@ namespace ACILIBj
             D = kD;
 
             IntegralLimit = integralLimit;
+            ZeroOnCross = zeroOnCross;
         }
 
         public void Reset()
@@ -38,13 +39,20 @@ namespace ACILIBj
 
             var changeInError = dTime != 0 ? (error - _lastError) / dTime : 0;
 
-            _errorSum = Math.Abs(error) > Epsilon ? _errorSum + error*dTime : 0;
-            _errorSum = Utilities.Clamp(_errorSum, IntegralLimit);
-
             if (ZeroOnCross)
             {
                 if (Math.Sign(error) != Math.Sign(_lastError)) _errorSum = 0;
             }
+
+            var output = P*error + D*changeInError;
+
+            if (Math.Abs(output) < 1.0)
+            {
+                _errorSum = Math.Abs(error) > Epsilon ? _errorSum + error * dTime : 0;
+            }
+            _errorSum = Utilities.Clamp(_errorSum, IntegralLimit);
+
+            output += I*_errorSum;
 
             _lastError = error;
 
@@ -52,7 +60,7 @@ namespace ACILIBj
             Console.WriteLine("I: " + I*_errorSum);
             Console.WriteLine("D: " + D*changeInError);
 
-            return P*error + I*_errorSum + D*changeInError;
+            return output;
         }
     }
 }
