@@ -17,6 +17,7 @@ namespace CTC.Subsystems
         // Declare and instantiate limit switch
         private static readonly DigitalInput LimitSwitchFront = new DigitalInput(Ports.LimitSwitchFront);
         private static readonly DigitalInput LimitSwitchBack = new DigitalInput(Ports.LimitSwitchBack);
+        private static readonly DigitalInput LimitSwitchBall = new DigitalInput(Ports.LimitSwitchBall);
 
         public static void SetIntake(double power)
         {
@@ -93,6 +94,11 @@ namespace CTC.Subsystems
             }
             ArmLeft.Set(0);
             ArmRight.Set(0);
+        }
+
+        internal static bool GetBallLimitSwitch()
+        {
+            return !LimitSwitchBall.Get();
         }
 
     }

@@ -20,6 +20,7 @@
         internal const int LimitSwitchBack = 1;
         internal const int LimitSwitchOut = 2;
         internal const int LimitSwitchIn = 3;
+        internal const int LimitSwitchBall = 4;
 
         internal const int Gyro = 0;
 

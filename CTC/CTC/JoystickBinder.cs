@@ -12,6 +12,7 @@ namespace CTC
     internal static class JoystickBinder
     {
         public static bool MacMode { get; set; }
+        private static bool _hasBall;
 
         // Define and instantiate joysticks
         private static readonly SuperJoystick Driver = new SuperJoystick(Ports.JoystickDriver);
@@ -22,6 +23,10 @@ namespace CTC
         /// </summary>
         public static void Update()
         {
+            RumbleIfBall();
+
+            SmartDashboard.PutBoolean("Ball In Intake", Arm.GetBallLimitSwitch());
+
             // Analog axis binds
             DriveBase.Drive(Driver);
 
@@ -70,9 +75,24 @@ namespace CTC
 
         private static void RumbleThread()
         {
-            Driver.SetRumble(0.8f, SuperJoystick.RumbleType.Right);
+            Driver.SetRumble(1f, SuperJoystick.RumbleType.All);
             Thread.Sleep(200);
             Driver.SetRumble(0, SuperJoystick.RumbleType.All);
+        }
+
+        private static void RumbleIfBall()
+        {
+            var rumbleThread = new Thread(RumbleThread);
+
+            if (!_hasBall && Arm.GetBallLimitSwitch())
+            {
+                rumbleThread.Start();
+                _hasBall = true;
+            }
+            else if (!Arm.GetBallLimitSwitch())
+            {
+                _hasBall = false;
+            }
         }
     }
 
