@@ -15,7 +15,9 @@ namespace CTC.Autonomous
             Default, Portculiis, Cheval, LowBar, Drive, LowGoal, Test
         }
 
-        public AutoChooser()
+        private static int _selectedAuto;
+
+        internal void PutData()
         {
             Chooser.AddDefault("Default", Autos.Default);
             Chooser.AddObject("Portcullis", Autos.Portculiis);
@@ -24,43 +26,44 @@ namespace CTC.Autonomous
             Chooser.AddObject("Drive Only", Autos.Drive);
             Chooser.AddObject("Test Auto", Autos.Test);
             Chooser.AddObject("Low GOAL", Autos.LowGoal);
+            SmartDashboard.PutData("Auto Choices", Chooser);
         }
 
-        internal void PutData()
+        internal void GetChoice(int value)
         {
-            SmartDashboard.PutData("Auto Choices", Chooser);
+            Console.WriteLine("RAN GET CHOICE");
+
+            _selectedAuto = value;
         }
 
         internal void Run()
         {
             AutoThread.Start();
         }
-
+        
         internal void Abort()
         {
-            switch ((Autos)Chooser.GetSelected())
+            switch (_selectedAuto)
             {
-                case Autos.Default:
+                case (int)Autos.Default:
                     break;
-                case Autos.Portculiis:
+                case (int)Autos.Portculiis:
                     PortcullisAuto.Abort();
                     break;
-                case Autos.Cheval:
+                case (int)Autos.Cheval:
                     ChevalAuto.Abort();
                     break;
-                case Autos.LowBar:
+                case (int)Autos.LowBar:
                     LowBarAuto.Abort();
                     break;
-                case Autos.Drive:
+                case (int)Autos.Drive:
                     DriveAuto.Abort();
                     break;
-                case Autos.Test:
+                case (int)Autos.Test:
                     TestAuto.Abort();
                     break;
-                case Autos.LowGoal:
+                case (int)Autos.LowGoal:
                     LowGoalAuto.Abort();
-                    break;
-                default:
                     break;
             }
 
@@ -69,26 +72,29 @@ namespace CTC.Autonomous
 
         private static void AutoSwitch()
         {
-            switch ((Autos) Chooser.GetSelected())
+            Console.WriteLine("INSIDE AUTO SWITCH");
+            Console.WriteLine("AUTO SELECTED: {0}", _selectedAuto);
+
+            switch (_selectedAuto)
             {
-                case Autos.Default:
+                case (int)Autos.Default:
                     break;
-                case Autos.Portculiis:
+                case (int)Autos.Portculiis:
                     PortcullisAuto.Run();
                     break;
-                case Autos.Cheval:
+                case (int)Autos.Cheval:
                     ChevalAuto.Run();
                     break;
-                case Autos.LowBar:
+                case (int)Autos.LowBar:
                     LowBarAuto.Run();
                     break;
-                case Autos.Drive:
+                case (int)Autos.Drive:
                     DriveAuto.Run();
                     break;
-                case Autos.Test:
+                case (int)Autos.Test:
                     TestAuto.Run();
                     break;
-                case Autos.LowGoal:
+                case (int)Autos.LowGoal:
                     LowGoalAuto.Run();
                     break;
                 default:

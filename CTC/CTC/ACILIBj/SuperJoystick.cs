@@ -210,7 +210,7 @@ namespace ACILIBj
         {
             if (Math.Abs(input) <= deadzone) return 0;
 
-            return ((input - Math.Sign(input)*deadzone)/(1 - deadzone) * multiplier);
+            return (input - Math.Sign(input)*deadzone)/(1 - deadzone) * multiplier;
         }
 
         #endregion

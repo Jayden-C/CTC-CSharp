@@ -43,8 +43,8 @@ namespace CTC
                 Arm.SetIntake(Driver.GetButtonDouble(SuperJoystick.Button.LB, 1) -
                               Driver.GetButtonDouble(SuperJoystick.Button.RB, 1));
 
-                Arm.SetArm((Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) -
-                           Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1, false)));
+                Arm.SetArm(Driver.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) -
+                           Driver.GetAxis(SuperJoystick.Axis.LT, 0, 1, false));
 
                 Portcullis.Set(Driver.GetButtonDouble(SuperJoystick.Button.X, 0.8)
                              - Driver.GetButtonDouble(SuperJoystick.Button.B, 0.8));
@@ -68,21 +68,30 @@ namespace CTC
 
         private static void ToggleFront()
         {
-            var rumbleThread = new Thread(RumbleThread);
+            var rumbleThread = new Thread(RumbleThreadDriver);
             DriveBase.ToggleFront = !DriveBase.ToggleFront;
             rumbleThread.Start();
         }
 
-        private static void RumbleThread()
+        private static void RumbleThreadDriver()
         {
             Driver.SetRumble(1f, SuperJoystick.RumbleType.All);
             Thread.Sleep(200);
             Driver.SetRumble(0, SuperJoystick.RumbleType.All);
         }
 
+        public static void RumbleThreadBoth()
+        {
+            Driver.SetRumble(1f, SuperJoystick.RumbleType.All);
+            Operator.SetRumble(1f, SuperJoystick.RumbleType.All);
+            Thread.Sleep(200);
+            Driver.SetRumble(0, SuperJoystick.RumbleType.All);
+            Operator.SetRumble(0, SuperJoystick.RumbleType.All);
+        }
+
         private static void RumbleIfBall()
         {
-            var rumbleThread = new Thread(RumbleThread);
+            var rumbleThread = new Thread(RumbleThreadBoth);
 
             if (!_hasBall && Arm.GetBallLimitSwitch())
             {

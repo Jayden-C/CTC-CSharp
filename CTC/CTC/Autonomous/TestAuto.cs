@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading;
 using CTC.Subsystems;
-using WPILib;
-using WPILib.Extras.NavX;
 using WPILib.SmartDashboard;
 using PIDController = ACILIBj.PIDController;
 using CTC.Sensors;

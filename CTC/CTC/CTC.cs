@@ -1,8 +1,6 @@
 ﻿using System;
 using CTC.Autonomous;
-using CTC.Sensors;
 using WPILib;
-using WPILib.SmartDashboard;
 
 namespace CTC
 {
@@ -12,26 +10,32 @@ namespace CTC
 
         private static bool _autoRan;
 
+        private static int AutoSelected = -1;
+
         public override void RobotInit()
         {
             Auto.PutData();
-            //LowGoalAuto.InitGyro();
         }
 
         public override void AutonomousInit()
         {
-            
+            Auto.GetChoice(2);
+
+            Console.WriteLine("Selected Auto: ");
+            Console.Write(AutoSelected);
         }
 
         public override void AutonomousPeriodic()
         {
             if (_autoRan) return;
+
+            Console.WriteLine("AUTO RAN");
             Auto.Run();
             _autoRan = true;
         }
 
         public override void TeleopInit()
-        {
+        { 
             if (_autoRan)
             {
                 Auto.Abort();

@@ -12,12 +12,12 @@ namespace CTC.Autonomous
         {
             DriveBase.DriveTime(1300, -0.35);
             Arm.Raise();
-            Portcullis.Deploy();
+            if (!Portcullis.DeployBool()) return;
             DriveBase.DriveTime(700, -0.6);
             PortRetract.Start();
             DriveBase.DriveTime(700, -0.8);
             Thread.Sleep(700);
-            DriveBase.DriveTime(1300, -0.35);
+            DriveBase.DriveTime(1000, -0.35);
             DriveBase.DriveTime(500, 0.35);
         }
 

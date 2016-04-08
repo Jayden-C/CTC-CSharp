@@ -42,11 +42,30 @@ namespace CTC.Subsystems
         /// <summary>
         /// Extends the portcullis ramp.
         /// </summary>
-        internal static void Deploy()
+        internal static bool DeployBool()
         {
-            while (LimitSwitchOut.Get())
+            var timeout = 0;
+
+            while (LimitSwitchOut.Get() && timeout < 100)
             {
                 PortcullisMotor.Set(-0.9);
+                timeout++;
+                Thread.Sleep(20);
+            }
+            PortcullisMotor.Set(0);
+
+            if (timeout < 100) return true;
+            return false;
+        }
+
+        internal static void Deploy()
+        {
+            var timeout = 0;
+
+            while (LimitSwitchOut.Get() && timeout < 100)
+            {
+                PortcullisMotor.Set(-0.9);
+                timeout++;
                 Thread.Sleep(20);
             }
             PortcullisMotor.Set(0);
@@ -55,15 +74,34 @@ namespace CTC.Subsystems
         /// <summary>
         /// Retracts the portcullis ramp.
         /// </summary>
-        internal static void Retract()
+        internal static bool RetractBool()
         {
-            while (LimitSwitchIn.Get())
+            var timeout = 0;
+
+            while (LimitSwitchIn.Get() && timeout < 100)
             {
                 PortcullisMotor.Set(0.9);
+                timeout++;
+                Thread.Sleep(20);
+            }
+            PortcullisMotor.Set(0);
+
+            if (timeout < 100) return true;
+            return false;
+        }
+
+        internal static void Retract()
+        {
+            var timeout = 0;
+
+            while (LimitSwitchIn.Get() && timeout < 100)
+            {
+                PortcullisMotor.Set(0.9);
+                timeout++;
                 Thread.Sleep(20);
             }
             PortcullisMotor.Set(0);
         }
-        
+
     }
 }

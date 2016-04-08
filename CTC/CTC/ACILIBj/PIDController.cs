@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
-using WPILib;
 
 namespace ACILIBj
 {
     class PIDController
     {
-        private double P, I, D;
+        private readonly double P, I, D;
 
         private double _errorSum, _lastError;
 
