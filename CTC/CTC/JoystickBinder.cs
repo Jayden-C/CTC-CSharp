@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using ACILIBj;
 using CTC.Subsystems;
 using WPILib.SmartDashboard;
@@ -24,11 +23,14 @@ namespace CTC
         public static void Update()
         {
             RumbleIfBall();
-
+            
             SmartDashboard.PutBoolean("Ball In Intake", Arm.GetBallLimitSwitch());
 
             // Analog axis binds
             DriveBase.Drive(Driver);
+
+            Climber.SetTapes(Operator.GetAxis(SuperJoystick.Axis.RT, 0, 1, false) + Operator.GetButtonDouble(SuperJoystick.Button.RB, 0.5)
+                - (Operator.GetAxis(SuperJoystick.Axis.LT, 0, 1, false) + Operator.GetButtonDouble(SuperJoystick.Button.LB, 0.5)));
 
             if (!MacMode)
             {
@@ -51,21 +53,16 @@ namespace CTC
             }
 
             // Button binds
-            Driver.RunWhenPressed(SuperJoystick.Button.Back, ToggleGhettoShift);
             Driver.RunWhenPressed(SuperJoystick.Button.Start, () => MacMode = !MacMode);
             Driver.RunWhenPressed(SuperJoystick.Button.A, ToggleFront);
 
-            // Dashboard
+            Operator.RunWhilePressed(SuperJoystick.Button.Y, Climber.WinchIn, Climber.WinchStop);
 
+            // Dashboard
             SmartDashboard.PutBoolean("Mac Mode", MacMode);
 
         }
         
-        private static void ToggleGhettoShift()
-        {
-            DriveBase.SpeedMultiplier = Math.Abs(DriveBase.SpeedMultiplier - 1) < 0.5 ? 0.5 : 1;
-        }
-
         private static void ToggleFront()
         {
             var rumbleThread = new Thread(RumbleThreadDriver);

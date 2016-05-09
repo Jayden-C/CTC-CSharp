@@ -17,7 +17,7 @@ namespace CTC.Autonomous
             PortRetract.Start();
             DriveBase.DriveTime(700, -0.8);
             Thread.Sleep(700);
-            DriveBase.DriveTime(1000, -0.35);
+            DriveBase.DriveTime(700, -0.35);
             DriveBase.DriveTime(500, 0.35);
         }
 

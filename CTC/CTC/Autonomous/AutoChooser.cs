@@ -31,8 +31,6 @@ namespace CTC.Autonomous
 
         internal void GetChoice(int value)
         {
-            Console.WriteLine("RAN GET CHOICE");
-
             _selectedAuto = value;
         }
 
@@ -72,7 +70,6 @@ namespace CTC.Autonomous
 
         private static void AutoSwitch()
         {
-            Console.WriteLine("INSIDE AUTO SWITCH");
             Console.WriteLine("AUTO SELECTED: {0}", _selectedAuto);
 
             switch (_selectedAuto)

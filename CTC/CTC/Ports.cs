@@ -14,11 +14,15 @@
         internal const int ArmMotorLeft = 0;
         internal const int ArmMotorRight = 1;
 
-        internal const int PortcullisMotor = 5;
+        internal const int PortcullisMotor = 6;
+
+        internal const int TapeMeasureMotor = 9;
+        internal const int WinchMotor1 = 5;
+        internal const int WinchMotor2 = 7;
 
         internal const int LimitSwitchFront = 0;
-        internal const int LimitSwitchBack = 1;
-        internal const int LimitSwitchOut = 2;
+        internal const int LimitSwitchBack = 2;
+        internal const int LimitSwitchOut = 1;
         internal const int LimitSwitchIn = 3;
         internal const int LimitSwitchBall = 4;
 

@@ -9,7 +9,7 @@ namespace CTC.Subsystems
     /// </summary>
     internal static class Portcullis
     {
-        private static readonly Talon PortcullisMotor = new Talon(Ports.PortcullisMotor);
+        private static readonly VictorSP PortcullisMotor = new VictorSP(Ports.PortcullisMotor);
 
         private static readonly DigitalInput LimitSwitchOut = new DigitalInput(Ports.LimitSwitchOut);
         private static readonly DigitalInput LimitSwitchIn = new DigitalInput(Ports.LimitSwitchIn);
@@ -58,6 +58,9 @@ namespace CTC.Subsystems
             return false;
         }
 
+        /// <summary>
+        /// Extends the portcullis ramp.
+        /// </summary>
         internal static void Deploy()
         {
             var timeout = 0;
@@ -90,6 +93,9 @@ namespace CTC.Subsystems
             return false;
         }
 
+        /// <summary>
+        /// Retracts the portcullis ramp.
+        /// </summary>
         internal static void Retract()
         {
             var timeout = 0;
